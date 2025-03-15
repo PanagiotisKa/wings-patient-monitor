@@ -1,15 +1,16 @@
-import mockData from '../../../mockDetailPatientData.json'
 
-type patientLastDataType = {
+type patient24hDataType = {
     timestamp: string
-    heart_rate: number
-    z_accel: number
+    patient_id: number
+    heart_rate: string
+    dia_blood_pressure: string
+    sys_blood_pressure: string
 
 }
 
-export default async function getPatientLastData(token:string, patient_id: number): Promise< patientLastDataType | Error> {
+export default async function getPatient24hData(token:string, patient_id:string) {
     try {
-        const response = await fetch(`https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/realmeasurements?patient_id=${patient_id}&detail=second&interval=10+seconds&lastvalues=1`,{
+        const response = await fetch(`https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/realmeasurements?patient_id=${patient_id}&detail=hour&interval=24+hours&lastvalues=24`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,8 +33,9 @@ export default async function getPatientLastData(token:string, patient_id: numbe
                 
             }
             return data
+        
     } catch (error) {
         console.log(error)
-      return error as Error;
+        return error as Error;
     }
 }

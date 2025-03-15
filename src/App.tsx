@@ -7,6 +7,7 @@ import NewPatientPage from './pages/NewPatientPage'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import LogoutPage from './pages/LogoutPage'
+import PatientDetailsPage from './pages/PatientdetailsPage'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/' element={<HomePage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/logout' element={<LogoutPage/>}/>
+        <Route path='/patient/:patient_id' element={<PatientDetailsPage/>}/>
         <Route path='/new_patient' element={<NewPatientPage/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>

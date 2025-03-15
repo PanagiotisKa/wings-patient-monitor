@@ -1,8 +1,9 @@
 
 import {patientType, patientLastDataType} from "../../types/patientsTypes"
-import { Card, Button } from "@mui/material"
+import { Card} from "@mui/material"
 import getPatientLastData from "../../services/getPatientLastData"
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 function PatientCard({patient}: {patient: patientType}) {
   const token = localStorage.getItem('token');
@@ -37,7 +38,7 @@ function PatientCard({patient}: {patient: patientType}) {
       <Card sx={{p:1, mb:1, background: 'lightgreen'}}>
       z_accel: {patientLastData?.z_accel}
       </Card>
-      <Button>Details</Button>
+      <Link to={`/patient/${patient.patient_id}`}>Details</Link>
     </Card>
   )
 }
