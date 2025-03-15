@@ -1,4 +1,4 @@
-type userInfo = {
+export type userInfoType = {
     user_id: string
     username: string
     password: string
@@ -29,4 +29,18 @@ type userInfo = {
 }
 
 
-export default userInfo;
+export type newUserType = {
+    firstname: string
+    lastname: string
+    address_street: string
+    facility_id: number
+    address_number: string
+    address_city: string
+    address_postalcode: string
+    phonenumber: string
+    sex: string
+    age: number
+    email: string
+    amka: string
+    ext_patient: boolean
+}

@@ -1,8 +1,9 @@
-import {patientDetailedType} from '../types/patientsTypes'
+import { facilityType } from "../types/otherTypes";
 
-export default async function getPatientDetailedData(token:string, patient_id:string):Promise<patientDetailedType | Error>{
+
+export default async function getFacilitiesData(token: string): Promise<facilityType[] | Error> {
     try {
-        const response = await fetch(`https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/patients?patient_id=${patient_id}&details=true`,{
+        const response = await fetch('https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/facilities', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,7 +15,7 @@ export default async function getPatientDetailedData(token:string, patient_id:st
                 throw new Error('Network response was not ok')
             }   
             const data = await response.json()
-            return data[0]
+            return data
     } catch (error) {
         console.log(error)
         return error as Error

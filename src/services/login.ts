@@ -1,7 +1,7 @@
-import userInfo from "../types/userTypes";
+import {userInfoType} from "../types/userTypes";
 
 
-export default async function LoginService(username:string, password:string): Promise<userInfo | Error> {
+export default async function LoginService(username:string, password:string): Promise<userInfoType | Error> {
     try {    
       const response = await fetch('https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/users/login', {
           method: 'POST',

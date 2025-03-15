@@ -1,20 +1,21 @@
-import { useParams } from 'react-router';
 import { useNavigate } from 'react-router'
 import getPatientDetailedData from '../../services/getPatientDetailedData';
 import { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {patientDetailedType} from '../../types/patientsTypes';
 
 
-function PatientDetails() {
+
+function PatientDetails({patient_id}:{patient_id: string}) {
     const navigate = useNavigate()
-    const [patientData, setPatientData] = useState(null)
+    const [patientData, setPatientData] = useState<patientDetailedType | null>(null)
     const token = localStorage.getItem('token')
-    const { patient_id } = useParams()
   
     async function getData(token: string, patient_id: string) {
         if(token !== null && patient_id !== undefined) {
           const responseExtraData = await getPatientDetailedData(token, patient_id);
           if(responseExtraData !== null && !(responseExtraData instanceof Error)){
+            console.log(responseExtraData)
             setPatientData(responseExtraData)
           }
         }
@@ -33,9 +34,11 @@ function PatientDetails() {
       <>
       <div>
         Patient {patient_id}
+        <h1>{patientData?.firstname} {patientData?.lastname} {}</h1>
         <h2> Email: {patientData?.email}</h2>
         <h2> Age: {patientData?.age}</h2>
         <h2> Φύλο: {patientData?.sex}</h2>
+        <h4>Εθνικότητα: {patientData?.ethnicity}</h4>
       </div>
       <h2>Conditions</h2>
       <Table>

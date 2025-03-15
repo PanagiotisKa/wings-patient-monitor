@@ -17,10 +17,52 @@ export type patientType = {
     weight: number
   }
 
+  export type patientDetailedType = {
+    address_city?: string
+    address_number?: string
+    address_postalcode?: string
+    address_street?: string
+    age?: number
+    birth_date?: string
+    email?: string
+    enabled?: boolean
+    ethnicity?: string
+    facility?: {
+      facility_id?: number, 
+      facility_name?: string, 
+      facility_address?: string}
+    firstname?: string
+    height : number
+     lastname?: string
+    num_of_activities?: number
+    patient_id?: number
+    phonenumber?: string
+    sex: string
+    weight: number
+    conditions :{
+      code?: string,
+      condition_id?: number,
+      name?: string,
+      name_el?: string
+    }[]
+  }
+
+
+
 
   export type patientLastDataType = {
     timestamp: string
     heart_rate: number
     z_accel: number
+
+}
+
+
+export type patient24hDataType = {
+  timestamp: string
+  patient_id: number
+  heart_rate: string
+  dia_blood_pressure: string
+  sys_blood_pressure: string
 
 }
