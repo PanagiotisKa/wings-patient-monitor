@@ -1,8 +1,8 @@
+import patientType from "../types/patientsTypes"
 
-
-export default async function getAllPatients(token:string){
+export default async function getAllPatients(token:string, user_id: string): Promise<patientType[] | Error> {
     try {
-        const response = await fetch('https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/patients?user_id=18',{
+        const response = await fetch(`https://test-remote-health-monitoring.wings-ict-solutions.dev/healthmonitor/patients?user_id=${user_id}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export default async function getAllPatients(token:string){
             console.log(response)
             const data = await response.json();
             console.log(data)
-            return data;
+            return data.patients as patientType[];
     } catch (error) {
         console.log(error)
       return error as Error;

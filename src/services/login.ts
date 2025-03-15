@@ -14,7 +14,11 @@ export default async function LoginService(username:string, password:string): Pr
   
         const data = await response.json();
         const token = data.access_token;
+        const user_id = data.user_id;
+
         localStorage.setItem('token', token);
+        localStorage.setItem('user_id', user_id);
+
         return data
     } catch (error) {
         console.log(error)

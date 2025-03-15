@@ -1,23 +1,29 @@
 import { useNavigate } from 'react-router'
 import { useEffect, useState} from 'react';
-import getAllUsers from '../services/getAllPatients';
+import getAllPatients from '../services/getAllPatients';
+import PatientCard from '../components/features/PatientCard';
+import patientType from "../types/patientsTypes"
 
 function HomePage() {
   const token = localStorage.getItem('token');
-  const [data , setData] = useState([])
+  const user_id = localStorage.getItem('user_id');
+  const [data , setData] = useState<patientType[] | null>(null)
 
-  async function getData(token:string) {  
-        const results = await getAllUsers(token);
-        setData(results);
+  async function getData(token: string, user_id: string) {  
+    if(token !== null && user_id !== null) {
+      const response = await getAllPatients(token, user_id);
+      if(response !== null && !(response instanceof Error)){
+        setData(response);
+      }
+    }
   }
 
 
   const navigate = useNavigate();
       
   useEffect(() => {
-      if(token !== null) {
-        getData(token)
-        console.log(data)
+      if(token !== null && user_id !== null) {
+        getData(token, user_id)
       } else {
         navigate('/login');
       }
@@ -26,7 +32,16 @@ function HomePage() {
 
 
   return (
+    <>
     <div>Home</div>
+    { data !== null && data.length > 0 && data.map( patient => {
+      {console.log(patient)}
+      return(
+        <PatientCard patient={patient}/>
+      )
+    })
+    }
+    </>
   )
 }
 
