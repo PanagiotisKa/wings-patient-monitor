@@ -1,6 +1,6 @@
 
 import {patientType, patientLastDataType} from "../../types/patientsTypes"
-import { Card } from "@mui/material"
+import { Card, Button } from "@mui/material"
 import getPatientLastData from "../../services/getPatientLastData"
 import { useEffect, useState } from "react";
 
@@ -10,8 +10,9 @@ function PatientCard({patient}: {patient: patientType}) {
 
   async function getData(token: string, patient_id: number) {
     const response = await getPatientLastData( token, patient_id)
+    // console.log(response)
     if(response !== null && !(response instanceof Error)){
-      setPatientLastData(response);
+      setPatientLastData(response)
     }
   }
 
@@ -19,15 +20,24 @@ function PatientCard({patient}: {patient: patientType}) {
 
   useEffect(() => {
     if(token !== null && patient.patient_id !== null){
-      getData(token, patient.patient_id)
+      const fetchData = async () => await getData(token, patient.patient_id)
+      fetchData()
     }
-    }
+    
+    },[]
   )
   return (
-    <Card>
+    <Card sx={{ maxWidth: 345, minHeight: 200, background: 'lightgray', p:1, m:1 }}>
+      <Card sx={{p:1, mb:1, background: 'lightblue'}}>
       Name: {patient.firstname} {patient.lastname}
+      </Card>
+      <Card sx={{p:1, mb:1, background: 'pink'}}>
       Hart Rate: {patientLastData?.heart_rate}
-      {patientLastData?.z_accel}
+      </Card>
+      <Card sx={{p:1, mb:1, background: 'lightgreen'}}>
+      z_accel: {patientLastData?.z_accel}
+      </Card>
+      <Button>Details</Button>
     </Card>
   )
 }

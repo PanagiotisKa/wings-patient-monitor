@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router'
 import { useEffect, useState} from 'react';
 import getAllPatients from '../services/getAllPatients';
 import PatientCard from '../components/features/PatientCard';
-import patientType from "../types/patientsTypes"
+import {patientType} from "../types/patientsTypes"
 
 function HomePage() {
   const token = localStorage.getItem('token');
@@ -35,9 +35,10 @@ function HomePage() {
     <>
     <div>Home</div>
     { data !== null && data.length > 0 && data.map( patient => {
-      {console.log(patient)}
       return(
-        <PatientCard patient={patient}/>
+        <div key={patient.patient_id}>
+          <PatientCard patient={patient}/>
+        </div>
       )
     })
     }

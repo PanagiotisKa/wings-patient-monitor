@@ -11,9 +11,7 @@ export default async function getAllPatients(token:string, user_id: string): Pro
             }},
             );
 
-            console.log(response)
             const data = await response.json();
-            console.log(data)
             return data.patients as patientType[];
     } catch (error) {
         console.log(error)

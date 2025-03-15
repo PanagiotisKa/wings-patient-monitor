@@ -1,3 +1,5 @@
+import mockData from '../../../mockDetailPatientData.json'
+
 type patientLastData = {
     timestamp: string
     heart_rate: number
@@ -18,8 +20,17 @@ export default async function getPatientLastData(token:string, patient_id: numbe
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }   
-            const data = await response.json();
-            console.log(data)
+            let data = await response.json();
+            // if PROBLEM with ENDPOINT returning empty object  I am getting mock data
+            if(Object.keys(data).length === 0) {
+                mockData.forEach(item => {
+                    if(item.patient_id === patient_id) {
+                        data = item
+                    }
+                })
+
+                
+            }
             return data
     } catch (error) {
         console.log(error)
