@@ -4,7 +4,7 @@ import {createTheme } from "@mui/material/styles";
 export const customTheme = createTheme({
     palette: {
         primary: {
-            main: '#8a0073',
+            main: '#465380',
         },
         secondary: {
             main: '#f50057'
@@ -21,23 +21,25 @@ export const customTheme = createTheme({
         fontFamily: 'Roboto, sans-serif',
         h1: {
             fontWeight: 700,
-            fontSize: '2.5rem'
+            fontSize: '2rem'
         },
         h2: {
             fontWeight: 600,
-            fontSize: '2rem'
+            fontSize: '1.8rem'
         },
         h3: {
             fontWeight: 500,
-            fontSize: '1.5rem'
+            fontSize: '1.5rem',
+            color: '#636363'
         },
         h4: {
-            fontWeight: 400,
-            fontSize: '1rem'
+            fontWeight: 500,
+            fontSize: '1.4rem',
+            color: '#424242'
         },
         h5: {
             fontWeight: 300,
-            fontSize: '0.75rem'
+            fontSize: '1.2rem'
         },
         h6: {
             fontWeight: 200,

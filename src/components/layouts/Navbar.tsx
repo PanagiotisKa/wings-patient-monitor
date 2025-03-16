@@ -1,32 +1,79 @@
-import { AppBar, Container, Toolbar, Typography } from '@mui/material'
+import { AppBar, Toolbar, Typography, Drawer, List, ListItem, 
+  ListItemText, Button, IconButton, useMediaQuery, useTheme } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react'
 import { Link } from 'react-router'
-import { useEffect, useState } from 'react';
 
 function Navbar() {
-   
+
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const navItems = [
+    { text: 'Home Page', path: '/' },
+    { text: 'Add New Patient', path: '/new_patient' },
+    { text: 'Login', path: '/Login' },
+    { text: 'Logout', path: '/Logout' },
+  ];
+
+  const drawer = (
+    <div>
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item.text} component={Link} to={item.path}>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
 
   return (
+    <>
     <AppBar position="static">
-      <Container>
         <Toolbar>
-            <Link to='/'>
-                <Typography variant='h4'>Home Page</Typography>
-            </Link>
-            <Link to='/new_patient'>
-                <Typography variant='h4'>Add New Patient</Typography>
-            </Link>
-            
-            <Link to='/login'>
-                <Typography variant='h4'>Login</Typography>
-            </Link>
-           
-            <Link to='/logout'>
-                <Typography variant='h4'>Logout</Typography>
-            </Link>
-           
-            </Toolbar>
-      </Container>
+        <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>
+            Patient Monitor
+          </Typography>
+          {isMobile ? (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+          ) : (
+            <div>
+              {navItems.map((item) => (
+                <Button
+                  key={item.text}
+                  color="inherit"
+                  component={Link}
+                  to={item.path}
+                >
+                  {item.text}
+                </Button>
+              ))}
+            </div>
+          )}
+      </Toolbar>
     </AppBar>
+    <Drawer
+      variant="temporary"
+      open={mobileOpen}
+      onClose={handleDrawerToggle}
+      ModalProps={{ keepMounted: true }}
+      sx={{ '& .MuiDrawer-paper': { width: 240 } }}
+    >
+      {drawer}
+    </Drawer>
+  </>
   )
 }
 

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import Navbar from './components/layouts/Navbar'
 import NotFoundPage from './pages/NotFoundPage'
@@ -16,6 +14,7 @@ function App() {
     <>
      <BrowserRouter>
       <Navbar/>
+      <div className='container'>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
@@ -24,6 +23,7 @@ function App() {
         <Route path='/new_patient' element={<NewPatientPage/>}/>
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
+      </div>
     </BrowserRouter>
 </>
   )
