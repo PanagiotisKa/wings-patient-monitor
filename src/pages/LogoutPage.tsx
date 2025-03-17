@@ -13,7 +13,7 @@ function LogoutPage() {
     if(logout){
       setTimeout(() => {
         navigate('/login')
-      }, 1000); 
+      }, 2000); 
     }
   }, [])
 

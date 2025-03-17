@@ -78,14 +78,14 @@ export type patientErrorType = {
   firstname?: string,
   lastname?: string,
   email?: string,
-  facility_id?: number,
+  facility_id?: string,
   address_street?: string,
   address_number?: string,
   address_city?: string,
   address_postalcode?: string,
   phonenumber?: string,
   sex?: string,
-  age?: number,
+  age?: string,
   amka?: string,
-  ext_patient?: boolean
+  ext_patient?: string
 }

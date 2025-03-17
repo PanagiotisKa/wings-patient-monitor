@@ -12,10 +12,10 @@ const validate = (values: LoginFormValuesTypes) => {
     const errors:LoginFormErrorTypes = {};
 
     if (!values.username) {
-      errors.username = 'Required'};
+      errors.username = 'Το πεδίο είναι υποχρεωτικό'};
 
     if (!values.password) {
-      errors.password = 'Required';
+      errors.password = 'Το πεδίο είναι υποχρεωτικό';
     }
 
     return errors
@@ -57,7 +57,7 @@ function LoginPage() {
             <Grid size={12}>    
                 <form onSubmit={formik.handleSubmit}>
                     <Grid size={12}>
-                        <InputLabel sx={{ minWidth: '90%', fontSize: 20, marginTop:2}} htmlFor="username">Όνομα Χρήστη</InputLabel>
+                        <InputLabel sx={{ minWidth: '90%', fontSize: 20, marginTop:2}} htmlFor="username">Όνομα Χρήστη*</InputLabel>
                         <TextField
                             id="username"
                             name="username"
@@ -70,7 +70,7 @@ function LoginPage() {
                             />
                     </Grid>
                     <Grid size={12}>
-                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="password">Κωδικός</InputLabel>
+                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="password">Κωδικός*</InputLabel>
                             <TextField
                                 id="password"
                                 name="password"

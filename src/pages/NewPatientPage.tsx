@@ -1,6 +1,6 @@
 import {useFormik} from 'formik'
 import { useNavigate } from 'react-router'
-import { Button, TextField, InputLabel, Box, Typography, Select, MenuItem, CircularProgress, InputAdornment } from '@mui/material'
+import { Button, TextField, InputLabel, Box, Typography, Select, MenuItem, CircularProgress, InputAdornment, Alert } from '@mui/material'
 import Grid from '@mui/material/Grid2'
 import { patientType  } from '../types/patientsTypes'
 import { useState, useEffect } from 'react'
@@ -14,6 +14,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import { patientErrorType } from '../types/patientsTypes'
 import createNewPatient from '../services/createNewPatient'
+import CheckIcon from '@mui/icons-material/Check';
 
 
 const validate = (values: patientType ) => {
@@ -25,6 +26,14 @@ const validate = (values: patientType ) => {
 
     if (!values.lastname) {
     errors.lastname = 'Το πεδίο είναι υποχρεωτικό';
+    }
+
+    if (!values.amka) {
+      errors.amka = 'Το πεδίο είναι υποχρεωτικό';
+    }
+
+    if (!values.age) {
+      errors.age = 'Το πεδίο είναι υποχρεωτικό';
     }
 
     if (!values.email) {
@@ -39,6 +48,7 @@ const validate = (values: patientType ) => {
 function NewPatientPage() {
     const token = localStorage.getItem('token')
     const [errorMessage, setErrorMessage] = useState<string>('')
+    const [success, setSuccess] = useState<boolean>(false)
 
     const [facilities, setFacilities] = useState<facilityType[] | null>(null)
     
@@ -85,7 +95,10 @@ function NewPatientPage() {
             if(token !== null) {
              const response =  await createNewPatient(token , values)
              if(response !== null && !(response instanceof Error)){
+              setSuccess(true)
+              setTimeout(() => {
                 navigate('/')
+              }, 1000); 
              } else {
               setErrorMessage("Υπήρξε κάποιο πρόβλημα")
              }
@@ -99,12 +112,17 @@ function NewPatientPage() {
 
   return (
     <>
+    {success && 
+        <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+        Προστέθηκε ο νέος ασθενής με επιτυχία!
+      </Alert>
+    }
         <Typography variant='h3'>Προσθήκη Νέου Ασθενή</Typography>
         {facilities == null ? <CircularProgress/> :
         <form onSubmit={formik.handleSubmit}>
             <Grid container spacing={2}>
                 <Grid size={{ xs: 12, md: 6 }}>
-                    <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="firstname">Όνομα</InputLabel>
+                    <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="firstname">Όνομα*</InputLabel>
                     <TextField 
                         id="firstname"
                         name="firstname"
@@ -126,7 +144,7 @@ function NewPatientPage() {
                     />
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                    <InputLabel sx={{ minWidth: 200,  fontSize: 20, marginTop:2}} htmlFor="lastname">Επώνυμο</InputLabel>
+                    <InputLabel sx={{ minWidth: 200,  fontSize: 20, marginTop:2}} htmlFor="lastname">Επώνυμο*</InputLabel>
                     <TextField
                         fullWidth
                         id="lastname"
@@ -149,7 +167,7 @@ function NewPatientPage() {
                         />
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                    <InputLabel sx={{ minWidth: 200, fontSize: 20, marginTop:2}} htmlFor="age">Ηλικία</InputLabel>
+                    <InputLabel sx={{ minWidth: 200, fontSize: 20, marginTop:2}} htmlFor="age">Ηλικία*</InputLabel>
                     <TextField
                     fullWidth
                         id="age"
@@ -207,7 +225,7 @@ function NewPatientPage() {
                     </Select>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="amka">Α.Μ.Κ.Α.</InputLabel>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="amka">Α.Μ.Κ.Α.*</InputLabel>
                     <TextField
                         id="amka"
                         name="amka"
@@ -229,7 +247,7 @@ function NewPatientPage() {
                         />
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="email">Email</InputLabel>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="email">Email*</InputLabel>
                     <TextField
                         id="email"
                         name="email"

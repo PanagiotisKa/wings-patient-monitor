@@ -6,7 +6,7 @@ function NotFound() {
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center', p:3}} >
-        <Typography variant='h2' color={'#fc4503'}>404 | Η Σελίδα δεν βρέθηκε</Typography>
+        <Typography variant='h3' color={'#fc4503'}>404 | Η Σελίδα δεν βρέθηκε</Typography>
 
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center', p:3}} >
