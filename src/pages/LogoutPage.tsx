@@ -8,8 +8,6 @@ function LogoutPage() {
   
   const logout = LoginOutService()
   const navigate = useNavigate()
-  console.log(logout)
-  navigate('/login')
 
   useEffect(() => {
     if(logout){

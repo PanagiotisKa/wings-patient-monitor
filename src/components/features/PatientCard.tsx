@@ -13,9 +13,12 @@ import HeartRate from "../common/HeartRate";
 
 
 function PatientCard({patient}: {patient: patientType}) {
+  // get token from localStorage
   const token = localStorage.getItem('token');
+  
   const [patientLastData, setPatientLastData] = useState<patientLastDataType | null>(null)
 
+  // get last patient data 
   async function getData(token: string, patient_id: number) {
     const response = await getPatientLastData( token, patient_id)
     // console.log(response)

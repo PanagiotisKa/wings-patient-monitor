@@ -4,7 +4,8 @@ import { Button, TextField, InputLabel, Box, Typography} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import LoginService from '../services/login';
 import { LoginFormErrorTypes, LoginFormValuesTypes } from '../types/userTypes';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import TokenContext from '../services/tokenContext';
 
 
 const validate = (values: LoginFormValuesTypes) => {
@@ -22,6 +23,7 @@ const validate = (values: LoginFormValuesTypes) => {
 
 function LoginPage() {
 
+    const memoryToken = useContext(TokenContext)
     const [errorMessage, setErrorMessage] = useState<string>('')
     
     const navigate = useNavigate()
@@ -33,8 +35,10 @@ function LoginPage() {
         },
         validate,
         onSubmit: async (values) => {
+
           const response =  await LoginService(values.username, values.password)
           if ('access_token' in response && response.access_token !== undefined) {
+            memoryToken.setMemoryToken(response.access_token)
               navigate('/')
           } else {
             setErrorMessage("Υπήρξε κάποιο πρόβλημα στην σύνδεση σας. Παρακαλώ προσπαθήστε ξανά.")
@@ -48,12 +52,12 @@ function LoginPage() {
     <Box sx={{ display: 'flex', justifyContent: 'center'}} >
         <Grid container spacing={2}>
             <Grid size={12}>
-                <Typography variant='h2' color={'primary'}>Login</Typography>
+                <Typography variant='h2' color={'primary'}>Σύνδεση</Typography>
             </Grid>
             <Grid size={12}>    
                 <form onSubmit={formik.handleSubmit}>
                     <Grid size={12}>
-                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="username">User Name</InputLabel>
+                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="username">;Όνομα Χρήστη</InputLabel>
                         <TextField
                             id="username"
                             name="username"
@@ -66,7 +70,7 @@ function LoginPage() {
                             />
                     </Grid>
                     <Grid size={12}>
-                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="password">Password</InputLabel>
+                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="password">Κωδικός</InputLabel>
                             <TextField
                                 id="password"
                                 name="password"
@@ -84,7 +88,7 @@ function LoginPage() {
                         type='submit'
                         variant='contained'
                         color='primary'
-                        >Login</Button>
+                        >Σύνδεση</Button>
                     </Grid>
                 </form>
             </Grid>

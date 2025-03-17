@@ -1,25 +1,30 @@
 import { AppBar, Toolbar, Typography, Drawer, List, ListItem, 
   ListItemText, Button, IconButton, useMediaQuery, useTheme } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link } from 'react-router'
+import TokenContext from '../../services/tokenContext';
 
 function Navbar() {
-  const token = localStorage.getItem('token')
+  // memoryToken from memory to enable/disable login/logout
+  const memoryToken = useContext(TokenContext)
+  // drawer for mobile view
   const [mobileOpen, setMobileOpen] = useState(false)
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  // nav items
   const navItems = [
-    { text: 'Home Page', path: '/' },
-    { text: 'Add New Patient', path: '/new_patient' },
-    { text: 'Login', path: '/Login' },
-    { text: 'Logout', path: '/Logout' },
+    { text: 'Αρχική Σελίδα', path: '/' },
+    { text: 'Προσθήκη Νέου Ασθενή', path: '/new_patient' },
+    { text: 'Σύνδεση', path: '/Login' },
+    { text: 'Αποσύδεση', path: '/Logout' },
   ];
-
-  if(token === null) {
+ 
+  // logic to enable/disable login/logout
+  if(memoryToken.memoryToken.length == 0) {
     navItems.splice(3, 1)
   } else {
     navItems.splice(2, 1)
@@ -30,7 +35,7 @@ function Navbar() {
       <List>
         {navItems.map((item) => (
           <ListItem key={item.text} component={Link} to={item.path}>
-            <ListItemText primary={item.text} />
+            <ListItemText primary={item.text.toLocaleUpperCase()} />
           </ListItem>
         ))}
       </List>
@@ -59,6 +64,7 @@ function Navbar() {
               {navItems.map((item) => (
                 <Button
                   key={item.text}
+                  sx={{fontSize: '1.1rem', textTransform: 'none', pr:3}}
                   color="inherit"
                   component={Link}
                   to={item.path}

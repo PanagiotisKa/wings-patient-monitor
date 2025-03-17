@@ -14,7 +14,6 @@ function PatientDetails({patient_id}:{patient_id: string}) {
         if(token !== null && patient_id !== undefined) {
           const responseExtraData = await getPatientDetailedData(token, patient_id);
           if(responseExtraData !== null && !(responseExtraData instanceof Error)){
-            console.log(responseExtraData)
             setPatientData(responseExtraData)
           }
         }

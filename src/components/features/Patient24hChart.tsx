@@ -8,15 +8,26 @@ import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 function Patient24hChart({patient_id}:{patient_id: string}) {
+    // for redirect to login if no token
     const navigate = useNavigate()
+    // patient data
     const [patient24hData, setPatient24hData] = useState<patient24hDataType[] | null>(null)
+    // get token from local storage
     const token = localStorage.getItem('token')
 
-
+    // get patient data
     async function get24hData(token: string, patient_id: string):Promise<void> {
         if(token !== null && patient_id !== undefined) {
             const response24hData = await getPatient24hData(token, patient_id);
             if(response24hData !== null && !(response24hData instanceof Error)){
+                // transforme dates to greek hour
+                response24hData.map(data => {
+                    if(data.mockDate !== undefined){
+                        const newDate = new Date(data.mockDate)
+                        data.timestamp = newDate.toLocaleString('el-GR', {hour: '2-digit'})
+                        return data
+                    }
+                })
             setPatient24hData(response24hData)
             }
         }
@@ -24,16 +35,15 @@ function Patient24hChart({patient_id}:{patient_id: string}) {
     
     useEffect(() => {
         if(token !== null && patient_id !== undefined) {
-        get24hData(token, patient_id)
+            get24hData(token, patient_id)
         } else {
-        navigate('/login');
+            navigate('/login');
         }
     
     }, [])
 
   return (
     <>
-    {console.log(patient24hData)}
         <Typography variant="h3" color='primary' padding={2}>
             Μετρήσεις 24 Ωρών
         </Typography>

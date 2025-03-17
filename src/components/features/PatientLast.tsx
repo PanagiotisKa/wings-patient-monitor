@@ -16,7 +16,6 @@ function PatientLast({patient_id}:{patient_id: string}) {
           const responseLastData = await getPatientLastData(token, parseInt(patient_id));
           if(responseLastData !== null && !(responseLastData instanceof Error)){
             setPatientData(responseLastData)
-            console.log(patientData)
           }
         }
       }

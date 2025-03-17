@@ -64,6 +64,7 @@ export type patientType = {
 
 
 export type patient24hDataType = {
+  mockDate?: string,
   timestamp: string
   patient_id: number
   heart_rate: string

@@ -1,5 +1,6 @@
-import mockData from '../../../mock24hData.json'
 import {patient24hDataType} from '../types/patientsTypes'
+import mokeData from '../../../mock24hData.json' assert { type: 'json' }
+
 
 export default async function getPatient24hData(token:string, patient_id:string): Promise<patient24hDataType[] | Error> {
     try {
@@ -14,12 +15,14 @@ export default async function getPatient24hData(token:string, patient_id:string)
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }   
-            let data = await response.json();
+            const data = await response.json();
+
             // if PROBLEM with ENDPOINT returning empty object  I am getting mock data
             if(Object.keys(data).length === 0) {
-                        data = mockData
-                    }
-            return data
+               return mokeData
+            }else {
+                return data
+            }
 
     } catch (error) {
         console.log(error)
