@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router'
 import { useEffect, useState } from 'react';
 import getPatient24hData from '../../services/getPatient24hData';
 import {patient24hDataType} from '../../types/patientsTypes'
-import { LineChart, Line, Area, AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, Area, AreaChart, XAxis, YAxis, CartesianGrid, 
+    Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
@@ -32,6 +33,7 @@ function Patient24hChart({patient_id}:{patient_id: string}) {
 
   return (
     <>
+    {console.log(patient24hData)}
         <Typography variant="h3" color='primary' padding={2}>
             Μετρήσεις 24 Ωρών
         </Typography>
@@ -50,12 +52,28 @@ function Patient24hChart({patient_id}:{patient_id: string}) {
                     bottom: 5,
                 }}
                 >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" strokeWidth={2}/>
                     <XAxis dataKey="timestamp" />
                     <YAxis yAxisId="heart_rate" type="number" domain={[40, 120]}/>
                     <Tooltip />
-                    <Legend />
-                    <Line yAxisId="heart_rate" type="linear" dataKey="heart_rate" stroke="#ad452d" strokeWidth={3} activeDot={{ r: 8 }} />
+                    <Legend
+                        wrapperStyle={{
+                            fontSize: '18px', 
+                            fontWeight: 'bold',
+                            paddingTop: '20px', 
+                        }}
+                    />
+                    <Line name='Καρδιακοί Παλμοί' yAxisId="heart_rate" type="linear" dataKey="heart_rate" stroke="#ad452d" strokeWidth={3} activeDot={{ r: 8 }} >
+                    <LabelList
+                        dataKey="heart_rate"
+                        position="top"
+                        fill="#000"
+                        fontSize={14}
+                        offset={10}
+                        formatter={(value:string) => `${value}`} 
+                        />
+                    </Line>
+
                 </LineChart>
                 </ResponsiveContainer>
                 </Grid>
@@ -72,13 +90,39 @@ function Patient24hChart({patient_id}:{patient_id: string}) {
                         bottom: 0,
                     }}
                     >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="3 3" strokeWidth={2}/>
                     <XAxis dataKey="timestamp" />
                     <YAxis type="number" domain={[50, 150]}/>
                     <Tooltip />
-                    <Legend />
-                    <Area  type="linear" dataKey="sys_blood_pressure" stroke="#ad452d" fill="#ad452d" strokeWidth={3} fillOpacity={1}/>
-                    <Area  type="linear" dataKey="dia_blood_pressure" stroke="#ad452d" fill="#60a162" strokeWidth={3} fillOpacity={1}/>
+                    <Legend
+                        wrapperStyle={{
+                            fontSize: '18px', 
+                            fontWeight: 'bold',
+                            paddingTop: '20px', 
+                        }}
+                    />
+                    <Area name='Συστολική Πίεση'  type="linear" dataKey="sys_blood_pressure" stroke="#ad452d" fill="#ad452d" 
+                    strokeWidth={3} fillOpacity={1} dot={{ r: 3, fill: '#fff'}} activeDot={{ r: 3 }}>
+                    <LabelList
+                        dataKey="sys_blood_pressure"
+                        position="top"
+                        fill="#000"
+                        fontSize={14}
+                        offset={10}
+                        formatter={(value:string) => `${value}`} 
+                        />
+                    </Area>
+                    <Area name='Διαστολική Πίεση' type="linear" dataKey="dia_blood_pressure" stroke="#60a162" fill="#60a162"
+                     strokeWidth={3} fillOpacity={1} dot={{ r: 3, fill: '#fff'}} activeDot={{ r: 8 }}>
+                                            <LabelList
+                        dataKey="dia_blood_pressure"
+                        position="top"
+                        fill="#000"
+                        fontSize={14}
+                        offset={10}
+                        formatter={(value:string) => `${value}`} 
+                        />
+                    </Area>
                 </AreaChart>
                 </ResponsiveContainer>
                 </Grid>

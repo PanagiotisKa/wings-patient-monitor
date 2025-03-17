@@ -11,6 +11,7 @@ import ZAccel from "../common/ZAccel";
 import HeartRate from "../common/HeartRate";
 
 
+
 function PatientCard({patient}: {patient: patientType}) {
   const token = localStorage.getItem('token');
   const [patientLastData, setPatientLastData] = useState<patientLastDataType | null>(null)

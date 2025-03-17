@@ -1,8 +1,8 @@
 import {useFormik} from 'formik'
 import { useNavigate } from 'react-router'
-import { Button, TextField, InputLabel, Typography, Select, MenuItem, CircularProgress, InputAdornment } from '@mui/material'
+import { Button, TextField, InputLabel, Box, Typography, Select, MenuItem, CircularProgress, InputAdornment } from '@mui/material'
 import Grid from '@mui/material/Grid2'
-import { newPatientType  } from '../types/patientsTypes'
+import { patientType  } from '../types/patientsTypes'
 import { useState, useEffect } from 'react'
 import getFacilitiesData from '../services/getFacilities'
 import { facilityType } from '../types/otherTypes'
@@ -12,12 +12,12 @@ import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined'
 import HomeIcon from '@mui/icons-material/Home'
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
-import { newPatientErrorType } from '../types/patientsTypes'
+import { patientErrorType } from '../types/patientsTypes'
+import createNewPatient from '../services/createNewPatient'
 
 
-
-const validate = (values: newPatientType ) => {
-    const errors: newPatientErrorType  = { };
+const validate = (values: patientType ) => {
+    const errors: patientErrorType  = { };
 
     if (!values.firstname) {
         errors.firstname = 'Το πεδίο είναι υποχρεωτικό';
@@ -38,6 +38,7 @@ const validate = (values: newPatientType ) => {
 
 function NewPatientPage() {
     const token = localStorage.getItem('token')
+    const [errorMessage, setErrorMessage] = useState<string>('')
 
     const [facilities, setFacilities] = useState<facilityType[] | null>(null)
     
@@ -66,7 +67,7 @@ function NewPatientPage() {
               firstname: '',
               lastname: '',
               email: '',
-              facility_id: 0,
+              facility_id: 1,
               address_street: '',
               address_number: '',
               address_city: '',
@@ -79,12 +80,20 @@ function NewPatientPage() {
 
           },
           validate,
-          onSubmit: async (values) => {
-              alert(JSON.stringify(values, null, 2));
-              // await LoginService(values.username, values.password)
-              navigate('/')
+          onSubmit: async (values: patientType) => {
+            if(token !== null) {
+             const response =  await createNewPatient(token , values)
+             if(response !== null && !(response instanceof Error)){
+                navigate('/')
+             } else {
+              setErrorMessage("Υπήρξε κάποιο πρόβλημα")
+             }
+
+          } else {
+            setErrorMessage("Συνδεθείτε ξανά")
           }
-          })
+        }
+    })
   
 
   return (
@@ -173,8 +182,8 @@ function NewPatientPage() {
                         margin="dense" 
                         onChange={formik.handleChange}
                     >
-                        <MenuItem value={"Male"}>Άνδρας</MenuItem>
-                        <MenuItem value={"Female"}>Γυναίκα</MenuItem>
+                        <MenuItem key={0} value={"Male"}>Άνδρας</MenuItem>
+                        <MenuItem key={1} value={"Female"}>Γυναίκα</MenuItem>
                     </Select>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
@@ -190,7 +199,7 @@ function NewPatientPage() {
                     > 
                     {facilities !== null &&
                         facilities.map((facility) => {
-                            return <MenuItem value={facility.facility_id}>{facility.facility_name}</MenuItem>
+                            return <MenuItem key={facility.facility_id} value={facility.facility_id}>{facility.facility_name}</MenuItem>
                         })
                     }
 
@@ -361,6 +370,11 @@ function NewPatientPage() {
             </Grid>
         </form>
         }
+         <Box sx={{ display: 'flex', justifyContent: 'center', p:3}} >
+    {errorMessage.length > 0 && 
+        <Typography variant='h3' color={'#fc4503'}>{errorMessage}</Typography>
+    }
+    </Box>
 </>
   )
 }

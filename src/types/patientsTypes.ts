@@ -3,18 +3,22 @@ export type patientType = {
     address_number: string
     address_postalcode: string
     address_street: string
-    birth_date: string
-    cognifit_user: boolean
+    birth_date?: string
+    facility_id: number | null
+    cognifit_user?: boolean
     email: string
-    enabled: boolean
-    ethnicity: string
+    enabled?: boolean
+    ethnicity?: string
     firstname: string
-    height: number
-    lastname: string,
-    patient_id: number,
-    phonenumber: string,
-    sex: string,
-    weight: number
+    height?: number
+    lastname: string
+    patient_id?: number
+    phonenumber: string
+    sex: string
+    amka: string
+    age: number | null
+    weight?: number
+    ext_patient: boolean
   }
 
   export type patientDetailedType = {
@@ -38,6 +42,7 @@ export type patientType = {
     patient_id?: number
     phonenumber?: string
     sex: string
+    amka: string
     weight: number
     conditions :{
       code?: string,
@@ -68,24 +73,7 @@ export type patient24hDataType = {
 }
 
 
-export type newPatientType = {
-  firstname: string
-  lastname: string
-  address_street: string
-  facility_id: number
-  address_number: string
-  address_city: string
-  address_postalcode: string
-  phonenumber: string
-  sex: string
-  age: number
-  email: string
-  amka: string
-  ext_patient: boolean
-}
-
-
-export type newPatientErrorType = {
+export type patientErrorType = {
   firstname?: string,
   lastname?: string,
   email?: string,

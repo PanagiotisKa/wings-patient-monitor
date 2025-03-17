@@ -21,7 +21,6 @@ export default async function LoginService(username:string, password:string): Pr
 
         return data
     } catch (error) {
-        console.log(error)
       return error as Error;
     }
     }

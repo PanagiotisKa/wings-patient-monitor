@@ -59,17 +59,22 @@ function PatientDetails({patient_id}:{patient_id: string}) {
           <Typography variant="h3" color='primary' padding={2}>Στοιχεία επικοινωνίας</Typography>
           <Card sx={{p:1, mb:1, background: '#e6e6e6', minHeight: '200px'}}>
             <Table>
-                    <TableRow>
-                      <TableCell> <Typography variant='h4'>Τηλεφωνο: <b> {patientData?.phonenumber} </b></Typography></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell> <Typography variant='h4'>Email: <b> {patientData?.email} </b></Typography></TableCell>
-                    </TableRow>
-                    <TableRow>
-                    <TableCell><Typography variant='h4'>Διεύθυνση: <b> {patientData?.address_street} </b>
-                    <b> {patientData?.address_number}</b> <b>{patientData?.address_city} </b>
-                    <b>  {patientData?.address_postalcode}</b></Typography></TableCell>
-                    </TableRow>
+              <TableBody>
+                  <TableRow>
+                    <TableCell> <Typography variant='h4'>Τηλεφωνο: <b> {patientData?.phonenumber} </b></Typography></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell> <Typography variant='h4'>Email: <b> {patientData?.email} </b></Typography></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant='h4'>Διεύθυνση: <b> {patientData?.address_street} </b>
+                        <b> {patientData?.address_number}</b> <b>{patientData?.address_city} </b>
+                        <b>  {patientData?.address_postalcode}</b>
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
               </Table>
             </Card>
         </Grid>
@@ -77,8 +82,20 @@ function PatientDetails({patient_id}:{patient_id: string}) {
         <Grid size={{xs: 12, md: 4}}>
         <Typography variant="h3" color='primary' padding={2}>Ίδρυμα Υγείας</Typography>
         <Card sx={{p:1, mb:1, background: '#e6e6e6', minHeight: '200px' }}>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell>
               <Typography variant='h4'>{patientData?.facility?.facility_name}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
               <Typography variant='h4'>{patientData?.facility?.facility_address}</Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
           </Card>
         </Grid>
 
@@ -94,7 +111,7 @@ function PatientDetails({patient_id}:{patient_id: string}) {
               </TableRow>
               </TableHead>
               <TableBody>
-                {patientData != null && patientData.hasOwnProperty('conditions') && patientData?.conditions.map((condition) => { 
+                {patientData != null && 'conditions' in patientData && patientData?.conditions.map((condition) => { 
                   return (    
                       <TableRow key={condition.condition_id}>
                         <TableCell><Typography variant='h5'>{condition.code}</Typography></TableCell>

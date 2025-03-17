@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import LogoutPage from './pages/LogoutPage'
 import PatientDetailsPage from './pages/PatientdetailsPage'
-
+import ErrorBoundary from './components/common/ErrorBoundary'
 
 function App() {
 
@@ -14,6 +14,7 @@ function App() {
     <>
      <BrowserRouter>
       <Navbar/>
+      <ErrorBoundary fallback={<h1>Oops! Something went wrong.</h1>}>
       <div className='container'>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
@@ -24,6 +25,7 @@ function App() {
         <Route path='*' element={<NotFoundPage/>}/>
       </Routes>
       </div>
+      </ErrorBoundary>
     </BrowserRouter>
 </>
   )

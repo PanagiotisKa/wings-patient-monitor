@@ -1,9 +1,10 @@
-import {useFormik} from 'formik'
+import {ErrorMessage, useFormik} from 'formik'
 import { useNavigate } from 'react-router'
 import { Button, TextField, InputLabel, Box, Typography} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import LoginService from '../services/login';
 import { LoginFormErrorTypes, LoginFormValuesTypes } from '../types/userTypes';
+import { useState } from 'react';
 
 
 const validate = (values: LoginFormValuesTypes) => {
@@ -20,6 +21,8 @@ const validate = (values: LoginFormValuesTypes) => {
 }
 
 function LoginPage() {
+
+    const [errorMessage, setErrorMessage] = useState<string>('')
     
     const navigate = useNavigate()
 
@@ -30,20 +33,19 @@ function LoginPage() {
         },
         validate,
         onSubmit: async (values) => {
-            alert(JSON.stringify(values, null, 2));
-            await LoginService(values.username, values.password)
-            navigate('/')
+          const response =  await LoginService(values.username, values.password)
+          if ('access_token' in response && response.access_token !== undefined) {
+              navigate('/')
+          } else {
+            setErrorMessage("Υπήρξε κάποιο πρόβλημα στην σύνδεση σας. Παρακαλώ προσπαθήστε ξανά.")
+          }
         }
         })
 
 
   return (
-    <Box
-  sx={{
-    display: 'flex',
-    justifyContent: 'center', // Centers content horizontally
-  }}
->
+    <>
+    <Box sx={{ display: 'flex', justifyContent: 'center'}} >
         <Grid container spacing={2}>
             <Grid size={12}>
                 <Typography variant='h2' color={'primary'}>Login</Typography>
@@ -88,6 +90,12 @@ function LoginPage() {
             </Grid>
         </Grid>
         </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', p:3}} >
+    {ErrorMessage.length > 0 && 
+        <Typography variant='h3' color={'#fc4503'}>{errorMessage}</Typography>
+    }
+    </Box>
+    </>
   )
 }
 
