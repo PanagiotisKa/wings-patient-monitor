@@ -1,4 +1,5 @@
-import patientType from "../types/patientsTypes"
+import {patientType }from "../types/patientsTypes"
+
 
 export default async function getAllPatients(token:string, user_id: string): Promise<patientType[] | Error> {
     try {
@@ -7,7 +8,7 @@ export default async function getAllPatients(token:string, user_id: string): Pro
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
-                'API_KEY':'7mJ5Ckgu7duD5lTdLGFRkfcHreY86CFQqGlcRVjwHjFWjEdIzBNd3HFlozQAcyHFfxngRoRVquxdaYwL6CLLBFJeu6btl5fbRysWPMfF3GU9wj7ZZUexijWkjPs5uc1'
+                'API_KEY': import.meta.env.VITE_API_KEY,
             }},
             );
 

@@ -4,12 +4,13 @@ import getAllPatients from '../services/getAllPatients';
 import PatientCard from '../components/features/PatientCard';
 import {patientType} from "../types/patientsTypes"
 import Grid from '@mui/material/Grid2';
-import { Typography } from '@mui/material';
+import { Typography, TextField } from '@mui/material';
 
 function HomePage() {
   const token = localStorage.getItem('token');
   const user_id = localStorage.getItem('user_id');
   const [data , setData] = useState<patientType[] | null>(null)
+  const [search, setSearch] = useState<string>('')
 
   async function getData(token: string, user_id: string) {  
     if(token !== null && user_id !== null) {
@@ -35,13 +36,29 @@ function HomePage() {
 
   return (
     <>
+    <Grid container  sx={{ padding: 2 }} justifyContent="center">
+      <Grid size={12}>
     <Typography variant='h3' align='center'>
       Τελευταίες Μετρήσεις Ασθενών
     </Typography>
+    </Grid>
+    <Grid size={6} alignContent="right">
+    <TextField label="Αναζήτηση:"  value={search} variant="standard"  size="small" fullWidth
+            onChange={(e) => {setSearch(e.target.value)}}
+            />
+    </Grid>
+    </Grid>
     <Grid container spacing={3} sx={{ padding: 3 }} justifyContent="center">
-      { data !== null && data.length > 0 && data.map( patient => {
+      { data !== null && data.length > 0 && data
+      .filter(
+            patient => {
+              return search === '' ? patient : 
+              (patient.firstname.toString().toLocaleLowerCase().includes(search.toLowerCase()) 
+                || patient.lastname?.toString().toLocaleLowerCase().includes(search.toLowerCase()))
+        })
+        .map( patient => {
         return(
-          <Grid key={patient.patient_id} xs={12} sm={6} md={4}>
+          <Grid key={patient.patient_id} >
             <PatientCard patient={patient}/>
           </Grid>
         )

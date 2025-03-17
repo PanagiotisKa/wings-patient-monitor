@@ -66,3 +66,37 @@ export type patient24hDataType = {
   sys_blood_pressure: string
 
 }
+
+
+export type newPatientType = {
+  firstname: string
+  lastname: string
+  address_street: string
+  facility_id: number
+  address_number: string
+  address_city: string
+  address_postalcode: string
+  phonenumber: string
+  sex: string
+  age: number
+  email: string
+  amka: string
+  ext_patient: boolean
+}
+
+
+export type newPatientErrorType = {
+  firstname?: string,
+  lastname?: string,
+  email?: string,
+  facility_id?: number,
+  address_street?: string,
+  address_number?: string,
+  address_city?: string,
+  address_postalcode?: string,
+  phonenumber?: string,
+  sex?: string,
+  age?: number,
+  amka?: string,
+  ext_patient?: boolean
+}

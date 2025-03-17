@@ -1,15 +1,64 @@
 import {useFormik} from 'formik'
 import { useNavigate } from 'react-router'
-import { Button, TextField, InputLabel, Box, Typography} from '@mui/material';
-import Grid from '@mui/material/Grid2';
-import { newUserType } from '../types/userTypes';
+import { Button, TextField, InputLabel, Typography, Select, MenuItem, CircularProgress, InputAdornment } from '@mui/material'
+import Grid from '@mui/material/Grid2'
+import { newPatientType  } from '../types/patientsTypes'
+import { useState, useEffect } from 'react'
+import getFacilitiesData from '../services/getFacilities'
+import { facilityType } from '../types/otherTypes'
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined'
+import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined'
+import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined'
+import HomeIcon from '@mui/icons-material/Home'
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
+import { newPatientErrorType } from '../types/patientsTypes'
 
 
-const validate = (values: newUserType) => {
 
+const validate = (values: newPatientType ) => {
+    const errors: newPatientErrorType  = { };
+
+    if (!values.firstname) {
+        errors.firstname = 'Το πεδίο είναι υποχρεωτικό';
+      }
+
+    if (!values.lastname) {
+    errors.lastname = 'Το πεδίο είναι υποχρεωτικό';
+    }
+
+    if (!values.email) {
+    errors.email = 'Το πεδίο είναι υποχρεωτικό';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+    }
+
+      return errors;
 }
-function NewPatientPage() {
 
+function NewPatientPage() {
+    const token = localStorage.getItem('token')
+
+    const [facilities, setFacilities] = useState<facilityType[] | null>(null)
+    
+    async function getData(token: string){
+        if(token !== null){
+            const response = await getFacilitiesData(token)
+            if(response !== null && !(response instanceof Error)){
+                setFacilities(response)
+            }
+        }
+    }
+
+    useEffect(() => {
+        if(token !== null) {
+            getData(token)
+            } else {
+            navigate('/login');
+            }
+    } , [])
+
+    
   const navigate = useNavigate()
   
       const formik = useFormik({
@@ -39,146 +88,280 @@ function NewPatientPage() {
   
 
   return (
-    <Box>
-      <Grid size={12}>
-        <Typography variant='h4'>Add New Patient</Typography>
-      </Grid>
-      <Grid size={12}>
+    <>
+        <Typography variant='h3'>Προσθήκη Νέου Ασθενή</Typography>
+        {facilities == null ? <CircularProgress/> :
         <form onSubmit={formik.handleSubmit}>
-        <Grid size={12}>
-          <InputLabel htmlFor="firstname">First Name</InputLabel>
-          <TextField
-              id="firstname"
-              name="firstname"
-              error={(formik.touched.firstname && formik.errors.firstname) ? true : false}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              helperText={formik.errors.firstname}
-              value={formik.values.firstname}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="lastname">Last Name</InputLabel>
-          <TextField
-              id="lastname"
-              name="lastname"
-              error={(formik.touched.lastname && formik.errors.lastname) ? true : false}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              helperText={formik.errors.lastname}
-              value={formik.values.lastname}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="age">Age</InputLabel>
-          <TextField
-              id="age"
-              name="age"
-              type="number"
-              error={(formik.touched.age && formik.errors.age) ? true : false}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              helperText={formik.errors.age}
-              value={formik.values.age}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="amka">ΑΜΚΑ</InputLabel>
-          <TextField
-              id="amka"
-              name="amka"
-              error={(formik.touched.amka && formik.errors.amka) ? true : false}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              helperText={formik.errors.amka}
-              value={formik.values.amka}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="email">Email</InputLabel>
-              <TextField
-                  id="email"
-                  name="email"
-                  error={(formik.touched.email && formik.errors.email) ? true : false}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  helperText={formik.errors.email}
-                  value={formik.values.email}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="address_street">Address Street</InputLabel>
-              <TextField
-                  id="address_street"
-                  name="address_street"
-                  error={(formik.touched.address_street && formik.errors.address_street) ? true : false}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  helperText={formik.errors.address_street}
-                  value={formik.values.address_street}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="address_number">Address Number</InputLabel>
-              <TextField
-                  id="address_number"
-                  name="address_number"
-                  error={(formik.touched.address_number && formik.errors.address_number) ? true : false}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  helperText={formik.errors.address_number}
-                  value={formik.values.address_number}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="address_number">Address Number</InputLabel>
-              <TextField
-                  id="address_number"
-                  name="address_number"
-                  error={(formik.touched.address_number && formik.errors.address_number) ? true : false}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  helperText={formik.errors.address_number}
-                  value={formik.values.address_number}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="address_city">City</InputLabel>
-              <TextField
-                  id="address_city"
-                  name="address_city"
-                  error={(formik.touched.address_city && formik.errors.address_city) ? true : false}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  helperText={formik.errors.address_city}
-                  value={formik.values.address_city}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <InputLabel htmlFor="address_postalcode">Postal Code</InputLabel>
-              <TextField
-                  id="address_postalcode"
-                  name="address_postalcode"
-                  error={(formik.touched.address_postalcode && formik.errors.address_postalcode) ? true : false}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  helperText={formik.errors.address_postalcode}
-                  value={formik.values.address_postalcode}  
-              />
-      </Grid>
-      <Grid size={12}>
-          <Button 
-          type='submit'
-          variant='contained'
-          color='primary'
-          >Add New Patient</Button>
-      </Grid>
+            <Grid container spacing={2}>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="firstname">Όνομα</InputLabel>
+                    <TextField 
+                        id="firstname"
+                        name="firstname"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.firstname && formik.errors.firstname) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.firstname}
+                        value={formik.values.firstname}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <BadgeOutlinedIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }}
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200,  fontSize: 20, marginTop:2}} htmlFor="lastname">Επώνυμο</InputLabel>
+                    <TextField
+                        fullWidth
+                        id="lastname"
+                        name="lastname"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.lastname && formik.errors.lastname) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.lastname}
+                        value={formik.values.lastname}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <BadgeOutlinedIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }}
+                        />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, fontSize: 20, marginTop:2}} htmlFor="age">Ηλικία</InputLabel>
+                    <TextField
+                    fullWidth
+                        id="age"
+                        name="age"
+                        type="number"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.age && formik.errors.age) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.age}
+                        value={formik.values.age}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <CalendarTodayIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }} 
+                        />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="sex">Φύλο</InputLabel>
+                    <Select
+                        id="sex"
+                        name="sex"
+                        variant="outlined"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        value={formik.values.sex}
+                        margin="dense" 
+                        onChange={formik.handleChange}
+                    >
+                        <MenuItem value={"Male"}>Άνδρας</MenuItem>
+                        <MenuItem value={"Female"}>Γυναίκα</MenuItem>
+                    </Select>
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="facility_id">Ίδρυμα Υγείας</InputLabel>
+                    <Select
+                        id="facility_id"
+                        name="facility_id"
+                        variant="outlined"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        value={formik.values.facility_id}
+                        margin="dense" 
+                        onChange={formik.handleChange}  
+                    > 
+                    {facilities !== null &&
+                        facilities.map((facility) => {
+                            return <MenuItem value={facility.facility_id}>{facility.facility_name}</MenuItem>
+                        })
+                    }
 
+                    </Select>
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="amka">Α.Μ.Κ.Α.</InputLabel>
+                    <TextField
+                        id="amka"
+                        name="amka"
+                        sx={{minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.amka && formik.errors.amka) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.amka}
+                        value={formik.values.amka}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <LocalHospitalIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }} 
+                        />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="email">Email</InputLabel>
+                    <TextField
+                        id="email"
+                        name="email"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.email && formik.errors.email) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.email}
+                        value={formik.values.email}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <AlternateEmailOutlinedIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }} 
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="address_street">Οδός</InputLabel>
+                    <TextField
+                        id="address_street"
+                        name="address_street"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.address_street && formik.errors.address_street) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.address_street}
+                        value={formik.values.address_street}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <HomeIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }} 
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="address_number">Αριθμός</InputLabel>
+                    <TextField
+                        id="address_number"
+                        name="address_number"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.address_number && formik.errors.address_number) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.address_number}
+                        value={formik.values.address_number}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <HomeIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }} 
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="address_city">Πόλη</InputLabel>
+                    <TextField
+                        id="address_city"
+                        name="address_city"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.address_city && formik.errors.address_city) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.address_city}
+                        value={formik.values.address_city}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <HomeIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }}  
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="address_postalcode">Ταχυδρομικός Κώδικας</InputLabel>
+                    <TextField
+                        id="address_postalcode"
+                        name="address_postalcode"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.address_postalcode && formik.errors.address_postalcode) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.address_postalcode}
+                        value={formik.values.address_postalcode}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <HomeIcon/>
+                                </InputAdornment>
+                              ),
+                            },
+                        }}  
+                    />
+                </Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
+                    <InputLabel sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2}} htmlFor="phonenumber">Τηλέφωνο</InputLabel>
+                    <TextField
+                        id="phonenumber"
+                        name="phonenumber"
+                        sx={{ minWidth: '100%', background:'#e8e5e3'}}
+                        error={(formik.touched.phonenumber && formik.errors.phonenumber) ? true : false}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        helperText={formik.errors.phonenumber}
+                        value={formik.values.phonenumber}
+                        slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <PhoneAndroidOutlinedIcon />
+                                </InputAdornment>
+                              ),
+                            },
+                        }}  
+                    />
+                </Grid>
+                <Grid size={12}>
+                    <Button 
+                    sx={{ minWidth: 200, width:'100%', fontSize: 20, marginTop:2, textTransform: 'none' }} 
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                    >Προσθήκη Νέου Ασθενή</Button>
+                </Grid>
+            </Grid>
         </form>
-      </Grid>
-
-
-    </Box>
+        }
+</>
   )
 }
 

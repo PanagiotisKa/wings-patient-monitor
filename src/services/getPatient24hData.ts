@@ -8,7 +8,7 @@ export default async function getPatient24hData(token:string, patient_id:string)
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
-                'API_KEY':'7mJ5Ckgu7duD5lTdLGFRkfcHreY86CFQqGlcRVjwHjFWjEdIzBNd3HFlozQAcyHFfxngRoRVquxdaYwL6CLLBFJeu6btl5fbRysWPMfF3GU9wj7ZZUexijWkjPs5uc1'
+                'API_KEY': import.meta.env.VITE_API_KEY,
             }},
             );
             if (!response.ok) {

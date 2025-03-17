@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router'
 import getPatientLastData from '../../services/getPatientLastData';
 import { useEffect, useState } from 'react';
-import { Card } from '@mui/material';
 import {patientLastDataType} from "../../types/patientsTypes"
+import ZAccel from '../common/ZAccel';
+import HeartRate from '../common/HeartRate';
+import Grid from '@mui/material/Grid2';
 
 function PatientLast({patient_id}:{patient_id: string}) {
     const navigate = useNavigate()
@@ -14,6 +16,7 @@ function PatientLast({patient_id}:{patient_id: string}) {
           const responseLastData = await getPatientLastData(token, parseInt(patient_id));
           if(responseLastData !== null && !(responseLastData instanceof Error)){
             setPatientData(responseLastData)
+            console.log(patientData)
           }
         }
       }
@@ -28,14 +31,14 @@ function PatientLast({patient_id}:{patient_id: string}) {
   }, [])
     
     return (
-      <>
-          <Card sx={{p:1, mb:1, background: 'pink'}}>
-          Hart Rate: {patientData?.heart_rate}
-          </Card>
-          <Card sx={{p:1, mb:1, background: 'lightgreen'}}>
-          z_accel: {patientData?.z_accel}
-          </Card>
-      </>
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
+        <Grid size={6} >
+          <HeartRate heart_rate={patientData?.heart_rate}/>
+        </Grid>
+        <Grid size={6} >
+          <ZAccel z_accel={patientData?.z_accel}/>
+        </Grid>
+      </Grid>
     )
   }
   

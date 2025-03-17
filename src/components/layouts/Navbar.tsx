@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Link } from 'react-router'
 
 function Navbar() {
-
+  const token = localStorage.getItem('token')
   const [mobileOpen, setMobileOpen] = useState(false)
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
 
@@ -18,6 +18,12 @@ function Navbar() {
     { text: 'Login', path: '/Login' },
     { text: 'Logout', path: '/Logout' },
   ];
+
+  if(token === null) {
+    navItems.splice(3, 1)
+  } else {
+    navItems.splice(2, 1)
+  }
 
   const drawer = (
     <div>

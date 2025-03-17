@@ -28,19 +28,13 @@ export type userInfoType = {
     "refresh_token" : string
 }
 
-
-export type newUserType = {
-    firstname: string
-    lastname: string
-    address_street: string
-    facility_id: number
-    address_number: string
-    address_city: string
-    address_postalcode: string
-    phonenumber: string
-    sex: string
-    age: number
-    email: string
-    amka: string
-    ext_patient: boolean
+export type LoginFormValuesTypes = {
+    username: string,
+    password: string
 }
+
+export type LoginFormErrorTypes = {
+    username?: string,
+    password?: string
+}
+

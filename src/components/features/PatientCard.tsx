@@ -1,15 +1,15 @@
 
 import {patientType, patientLastDataType} from "../../types/patientsTypes"
-import { Card, Typography, CircularProgress} from "@mui/material"
+import { Card, Typography, CircularProgress, Box} from "@mui/material"
 import getPatientLastData from "../../services/getPatientLastData"
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Grid from '@mui/material/Grid2';
 import PersonIcon from '@mui/icons-material/Person';
 import CallMadeIcon from '@mui/icons-material/CallMade';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import ZAccel from "../common/ZAccel";
+import HeartRate from "../common/HeartRate";
+
 
 function PatientCard({patient}: {patient: patientType}) {
   const token = localStorage.getItem('token');
@@ -51,25 +51,16 @@ function PatientCard({patient}: {patient: patientType}) {
           </Card>
         </Grid>
         {patientLastData == null ?
-        <Grid size={12} justifyContent="center">
+          <Box sx={{ display: 'flex' }}>
         <CircularProgress color="primary"/> 
-        </Grid>
+        </Box>
         :
           <>
         <Grid size={6}>
-          <Card sx={{p:1, mb:1, background: '#e6e6e6'}}>
-            <Typography variant="h1" color="#ad452d" align="center">
-            <FavoriteIcon/> {patientLastData?.heart_rate}
-            </Typography>
-
-          </Card>
-        </Grid>
+          <HeartRate heart_rate={patientLastData?.heart_rate}/>
+        </Grid  >
         <Grid size={6}>
-          <Card sx={{p:1, mb:1, background: '#e6e6e6'}}>
-          <Typography variant="h1" color="#465380" align="center">
-          <MonitorHeartIcon/> {patientLastData?.z_accel}
-          </Typography>
-          </Card>
+          <ZAccel z_accel={patientLastData?.z_accel}/>
           </Grid>
           <Grid size={12}>
           <Link to={`/patient/${patient.patient_id}`}>

@@ -7,7 +7,7 @@ export default async function LoginService(username:string, password:string): Pr
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'API_KEY':'7mJ5Ckgu7duD5lTdLGFRkfcHreY86CFQqGlcRVjwHjFWjEdIzBNd3HFlozQAcyHFfxngRoRVquxdaYwL6CLLBFJeu6btl5fbRysWPMfF3GU9wj7ZZUexijWkjPs5uc1'
+            'API_KEY': import.meta.env.VITE_API_KEY,
           },
           body: JSON.stringify({username, password}),
         });
