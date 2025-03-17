@@ -27,8 +27,6 @@ function PatientCard({patient}: {patient: patientType}) {
     }
   }
 
-
-
   useEffect(() => {
     if(token !== null && patient.patient_id !== null){
       const fetchData = async () => await getData(token, patient.patient_id)

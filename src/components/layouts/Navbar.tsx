@@ -35,7 +35,7 @@ function Navbar() {
       <List>
         {navItems.map((item) => (
           <ListItem key={item.text} component={Link} to={item.path}>
-            <ListItemText primary={item.text.toLocaleUpperCase()} />
+            <ListItemText primary={item.text} />
           </ListItem>
         ))}
       </List>

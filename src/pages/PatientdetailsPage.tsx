@@ -29,7 +29,7 @@ function PatientDetailsPage() {
           color="primary"
           size="small"
           onClick={() => { navigate('/')}}>
-          Αρχική Σελίδα
+          Επιστροφή
         </Button>
       </Box>
         </Grid>

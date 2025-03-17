@@ -12,7 +12,7 @@ export type patientType = {
     firstname: string
     height?: number
     lastname: string
-    patient_id?: number
+    patient_id: number
     phonenumber: string
     sex: string
     amka: string

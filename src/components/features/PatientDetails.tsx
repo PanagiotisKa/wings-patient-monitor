@@ -40,6 +40,7 @@ function PatientDetails({patient_id}:{patient_id: string}) {
         <Typography variant="h3" color='primary' padding={2}>Γενικά Στοιχεία </Typography>
           <Card sx={{p:1, mb:1, background: '#e6e6e6', minHeight: '200px'}}>
             <Table>
+              <TableBody>
                 <TableRow>
                   <TableCell> <Typography variant='h4'>Φύλο: <b> {patientData?.sex} </b></Typography></TableCell>
                 </TableRow>
@@ -49,6 +50,7 @@ function PatientDetails({patient_id}:{patient_id: string}) {
                 <TableRow>
                 <TableCell><Typography variant='h4'>ΑΜΚΑ: <b> {patientData?.amka} </b></Typography></TableCell>
                 </TableRow>
+              </TableBody>
             </Table>
             </Card>
         </Grid>
@@ -85,12 +87,12 @@ function PatientDetails({patient_id}:{patient_id: string}) {
           <TableBody>
             <TableRow>
               <TableCell>
-              <Typography variant='h4'>{patientData?.facility?.facility_name}</Typography>
+                <Typography variant='h4'>{patientData?.facility?.facility_name}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
-              <Typography variant='h4'>{patientData?.facility?.facility_address}</Typography>
+                <Typography variant='h4'>{patientData?.facility?.facility_address}</Typography>
               </TableCell>
             </TableRow>
           </TableBody>

@@ -57,7 +57,7 @@ function LoginPage() {
             <Grid size={12}>    
                 <form onSubmit={formik.handleSubmit}>
                     <Grid size={12}>
-                        <InputLabel sx={{ minWidth: '100%', fontSize: 20, marginTop:2}} htmlFor="username">;Όνομα Χρήστη</InputLabel>
+                        <InputLabel sx={{ minWidth: '90%', fontSize: 20, marginTop:2}} htmlFor="username">Όνομα Χρήστη</InputLabel>
                         <TextField
                             id="username"
                             name="username"
@@ -77,6 +77,7 @@ function LoginPage() {
                                 sx={{ minWidth: '100%', background:'#e8e5e3'}}
                                 error={(formik.touched.password && formik.errors.password) ? true : false}
                                 onChange={formik.handleChange}
+                                type='password'
                                 onBlur={formik.handleBlur}
                                 helperText={formik.errors.password}
                                 value={formik.values.password}  

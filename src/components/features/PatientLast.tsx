@@ -32,10 +32,14 @@ function PatientLast({patient_id}:{patient_id: string}) {
     return (
       <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid size={6} >
+          {patientData?.heart_rate &&
           <HeartRate heart_rate={patientData?.heart_rate}/>
+          }
         </Grid>
         <Grid size={6} >
+          {patientData?.z_accel &&
           <ZAccel z_accel={patientData?.z_accel}/>
+          }
         </Grid>
       </Grid>
     )

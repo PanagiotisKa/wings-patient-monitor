@@ -76,6 +76,7 @@ function NewPatientPage() {
               sex: '',
               age: 0,
               amka: '',
+              patient_id: 0,
               ext_patient: false
 
           },

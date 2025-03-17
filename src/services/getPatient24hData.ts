@@ -19,7 +19,7 @@ export default async function getPatient24hData(token:string, patient_id:string)
 
             // if PROBLEM with ENDPOINT returning empty object  I am getting mock data
             if(Object.keys(data).length === 0) {
-               return mokeData
+               return mokeData as patient24hDataType[]
             }else {
                 return data
             }
