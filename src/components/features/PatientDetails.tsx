@@ -6,10 +6,13 @@ import {patientDetailedType} from '../../types/patientsTypes';
 import Grid from '@mui/material/Grid2';
 
 function PatientDetails({patient_id}:{patient_id: string}) {
-    const navigate = useNavigate()
-    const [patientData, setPatientData] = useState<patientDetailedType | null>(null)
-    const token = localStorage.getItem('token')
   
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token')
+
+    const [patientData, setPatientData] = useState<patientDetailedType | null>(null)
+  
+    // Get patient's data
     async function getData(token: string, patient_id: string) {
         if(token !== null && patient_id !== undefined) {
           const responseExtraData = await getPatientDetailedData(token, patient_id);
@@ -23,6 +26,7 @@ function PatientDetails({patient_id}:{patient_id: string}) {
       if(token !== null && patient_id !== undefined) {
         getData(token, patient_id)
       } else {
+        // redirect to login page
         navigate('/login');
       }
   

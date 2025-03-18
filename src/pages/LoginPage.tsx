@@ -23,6 +23,7 @@ const validate = (values: LoginFormValuesTypes) => {
 
 function LoginPage() {
 
+    // memory token used for nav bar
     const memoryToken = useContext(TokenContext)
     const [errorMessage, setErrorMessage] = useState<string>('')
     
@@ -38,7 +39,9 @@ function LoginPage() {
 
           const response =  await LoginService(values.username, values.password)
           if ('access_token' in response && response.access_token !== undefined) {
+            // set token to memory (context)
             memoryToken.setMemoryToken(response.access_token)
+            // redirect to home page
               navigate('/')
           } else {
             setErrorMessage("Υπήρξε κάποιο πρόβλημα στην σύνδεση σας. Παρακαλώ προσπαθήστε ξανά.")

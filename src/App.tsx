@@ -9,6 +9,7 @@ import PatientDetailsPage from './pages/PatientDetailsPage'
 import ErrorBoundary from './components/common/ErrorBoundary'
 import TokenContext from './services/tokenContext'
 import { useState } from 'react'
+import { Typography } from '@mui/material'
 
 
 function App() {
@@ -20,7 +21,7 @@ const [memoryToken, setMemoryToken] = useState<string>(token)
     <TokenContext.Provider value={{memoryToken, setMemoryToken}}>
      <BrowserRouter>
       <Navbar/>
-      <ErrorBoundary fallback={<h1>Oops! Something went wrong.</h1>}>
+      <ErrorBoundary fallback={<Typography variant='h3' color={'#fc4503'}>Υπήρξε κάποιο τεχνικό πρόβλημα.</Typography>}>
       <div className='container'>
       <Routes>
         <Route path='/' element={<HomePage/>}/>

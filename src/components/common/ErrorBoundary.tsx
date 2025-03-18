@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { ErrorBoundaryProps, ErrorBoundaryState } from '../../types/otherTypes'
+import { Box, Typography } from '@mui/material';
 
 
 
@@ -9,12 +10,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     this.state = { hasError: false };
   }
 
-  // This lifecycle method is used to update state when an error is caught
+  // Method to update state when an error is caught
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error };
   }
 
-  // This lifecycle method is used to log error information
+  // Method to log error information
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
     this.setState({ error, errorInfo });
@@ -29,13 +30,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       return fallback ? (
         fallback
       ) : (
-        <div style={{ padding: '20px', color: 'red' }}>
-          <h2>Something went wrong.</h2>
+        <Box sx={{ display: 'flex', justifyContent: 'center', p:3}} >
+          <Typography variant='h3' color={'#fc4503'}>Υπήρξε κάποιο τεχνικό πρόβλημα.</Typography>
           <p>{error?.toString()}</p>
           <details style={{ whiteSpace: 'pre-wrap' }}>
             {errorInfo?.componentStack}
           </details>
-        </div>
+        </Box>
       );
     }
 

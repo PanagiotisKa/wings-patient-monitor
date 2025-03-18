@@ -7,10 +7,13 @@ import HeartRate from '../common/HeartRate';
 import Grid from '@mui/material/Grid2';
 
 function PatientLast({patient_id}:{patient_id: string}) {
-    const navigate = useNavigate()
-    const [patientData, setPatientData] = useState<patientLastDataType | null>(null)
-    const token = localStorage.getItem('token')
   
+    const navigate = useNavigate()
+    const token = localStorage.getItem('token')
+
+    const [patientData, setPatientData] = useState<patientLastDataType | null>(null)
+  
+    // Get data
     async function getData(token: string, patient_id: string) {
         if(token !== null && patient_id !== undefined) {
           const responseLastData = await getPatientLastData(token, parseInt(patient_id));
@@ -24,6 +27,7 @@ function PatientLast({patient_id}:{patient_id: string}) {
       if(token !== null && patient_id !== undefined) {
         getData(token, patient_id)
       } else {
+        // If there is no token, redirect to login
         navigate('/login');
       }
   

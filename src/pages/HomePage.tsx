@@ -7,11 +7,14 @@ import Grid from '@mui/material/Grid2';
 import { Typography, TextField } from '@mui/material';
 
 function HomePage() {
+
   const token = localStorage.getItem('token');
   const user_id = localStorage.getItem('user_id');
+
   const [data , setData] = useState<patientType[] | null>(null)
   const [search, setSearch] = useState<string>('')
 
+  // Get all patients data
   async function getData(token: string, user_id: string) {  
     if(token !== null && user_id !== null) {
       const response = await getAllPatients(token, user_id);

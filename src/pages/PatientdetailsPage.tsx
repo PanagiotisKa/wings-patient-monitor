@@ -16,13 +16,15 @@ function PatientDetailsPage() {
       <Grid container spacing={2}>
         <Grid  size = {12}>
           <PatientDetails patient_id={patient_id}/>
+
+          {/* HOME PAGE BUTTON */}
           <Box
         sx={{
           position: 'absolute',
           top: 160, 
           right: 30, 
         }}
-      >
+        >
         <Button
         sx={{ fontSize: 12, marginTop:2, textTransform: 'none' }}
           variant="contained"
@@ -31,6 +33,7 @@ function PatientDetailsPage() {
           onClick={() => { navigate('/')}}>
           Επιστροφή
         </Button>
+        
       </Box>
         </Grid>
         <Grid  size = {12}>

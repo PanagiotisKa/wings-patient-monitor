@@ -12,6 +12,7 @@ function LogoutPage() {
   useEffect(() => {
     if(logout){
       setTimeout(() => {
+        // redirect to login page after 2 seconds
         navigate('/login')
       }, 2000); 
     }
