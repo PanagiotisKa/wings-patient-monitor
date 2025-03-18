@@ -1,4 +1,4 @@
-import mockData from '../../../mockDetailPatientData.json' assert { type: 'json' }
+import mockData from '../../data/mockDetailPatientData.json' assert { type: 'json' }
 import { patientLastDataType } from '../types/patientsTypes'
 
 

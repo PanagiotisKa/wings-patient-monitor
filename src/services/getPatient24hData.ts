@@ -1,5 +1,6 @@
 import {patient24hDataType} from '../types/patientsTypes'
-import mokeData from '../../../mock24hData.json' assert { type: 'json' }
+import mokeData from '../../data/mock24hData.json' assert { type: 'json' }
+
 
 
 export default async function getPatient24hData(token:string, patient_id:string): Promise<patient24hDataType[] | Error> {

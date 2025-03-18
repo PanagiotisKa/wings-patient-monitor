@@ -1,0 +1,170 @@
+[
+  {
+    "mockDate": "2023-10-05T00:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "87",
+    "dia_blood_pressure": "92",
+    "sys_blood_pressure": "125"
+  },
+  {
+    "mockDate": "2023-10-05T01:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "76",
+    "dia_blood_pressure": "85",
+    "sys_blood_pressure": "118"
+  },
+  {
+    "mockDate": "2023-10-05T02:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "95",
+    "dia_blood_pressure": "96",
+    "sys_blood_pressure": "132"
+  },
+  {
+    "mockDate": "2023-10-05T03:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "103",
+    "dia_blood_pressure": "88",
+    "sys_blood_pressure": "127"
+  },
+  {
+    "mockDate": "2023-10-05T04:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "112",
+    "dia_blood_pressure": "91",
+    "sys_blood_pressure": "135"
+  },
+  {
+    "mockDate": "2023-10-05T05:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "79",
+    "dia_blood_pressure": "84",
+    "sys_blood_pressure": "121"
+  },
+  {
+    "mockDate": "2023-10-05T06:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "98",
+    "dia_blood_pressure": "97",
+    "sys_blood_pressure": "129"
+  },
+  {
+    "mockDate": "2023-10-05T07:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "89",
+    "dia_blood_pressure": "89",
+    "sys_blood_pressure": "124"
+  },
+  {
+    "mockDate": "2023-10-05T08:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "105",
+    "dia_blood_pressure": "93",
+    "sys_blood_pressure": "131"
+  },
+  {
+    "mockDate": "2023-10-05T09:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "81",
+    "dia_blood_pressure": "86",
+    "sys_blood_pressure": "119"
+  },
+  {
+    "mockDate": "2023-10-05T10:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "94",
+    "dia_blood_pressure": "95",
+    "sys_blood_pressure": "128"
+  },
+  {
+    "mockDate": "2023-10-05T11:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "110",
+    "dia_blood_pressure": "90",
+    "sys_blood_pressure": "133"
+  },
+  {
+    "mockDate": "2023-10-05T12:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "83",
+    "dia_blood_pressure": "87",
+    "sys_blood_pressure": "122"
+  },
+  {
+    "mockDate": "2023-10-05T13:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "99",
+    "dia_blood_pressure": "94",
+    "sys_blood_pressure": "130"
+  },
+  {
+    "mockDate": "2023-10-05T14:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "107",
+    "dia_blood_pressure": "98",
+    "sys_blood_pressure": "134"
+  },
+  {
+    "mockDate": "2023-10-05T15:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "78",
+    "dia_blood_pressure": "83",
+    "sys_blood_pressure": "120"
+  },
+  {
+    "mockDate": "2023-10-05T16:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "91",
+    "dia_blood_pressure": "92",
+    "sys_blood_pressure": "126"
+  },
+  {
+    "mockDate": "2023-10-05T17:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "104",
+    "dia_blood_pressure": "96",
+    "sys_blood_pressure": "132"
+  },
+  {
+    "mockDate": "2023-10-05T18:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "82",
+    "dia_blood_pressure": "85",
+    "sys_blood_pressure": "123"
+  },
+  {
+    "mockDate": "2023-10-05T19:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "97",
+    "dia_blood_pressure": "97",
+    "sys_blood_pressure": "129"
+  },
+  {
+    "mockDate": "2023-10-05T20:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "108",
+    "dia_blood_pressure": "89",
+    "sys_blood_pressure": "130"
+  },
+  {
+    "mockDate": "2023-10-05T21:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "84",
+    "dia_blood_pressure": "88",
+    "sys_blood_pressure": "121"
+  },
+  {
+    "mockDate": "2023-10-05T22:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "100",
+    "dia_blood_pressure": "93",
+    "sys_blood_pressure": "128"
+  },
+  {
+    "mockDate": "2023-10-05T23:00:00Z",
+    "patient_id": 1,
+    "heart_rate": "113",
+    "dia_blood_pressure": "99",
+    "sys_blood_pressure": "136"
+  }
+]
