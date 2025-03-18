@@ -6,4 +6,5 @@
 
 ## Χρήση: 
 cd wings-patient-monitor
+npm install
 npm run dev
