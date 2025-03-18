@@ -57,8 +57,8 @@ export type patientType = {
 
   export type patientLastDataType = {
     timestamp: string
-    heart_rate: number
-    z_accel: number
+    heart_rate: string
+    z_accel: string
 
 }
 

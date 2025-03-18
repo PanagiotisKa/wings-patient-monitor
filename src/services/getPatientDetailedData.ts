@@ -13,11 +13,15 @@ export default async function getPatientDetailedData(token:string, patient_id:st
             if (!response.ok) {
                 throw new Error('Network response was not ok')
             }   
-            const data = await response.json()
+            const data:patientDetailedType[] = await response.json()
+
             return data[0]
+
     } catch (error) {
-        console.log(error)
-        return error as Error
-        
+        if (error instanceof Error) {
+            throw new Error('Error fetching data: ' + error.message)
+           } else {
+               throw new Error('Error fetching data.')  
+           }      
     }
 }

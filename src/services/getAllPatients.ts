@@ -12,10 +12,15 @@ export default async function getAllPatients(token:string, user_id: string): Pro
             }},
             );
 
-            const data = await response.json();
-            return data.patients as patientType[];
+            const fetchedData = await response.json()
+            const data:patientType[] = fetchedData.patients
+            return data
+
     } catch (error) {
-        console.log(error)
-      return error as Error;
+        if (error instanceof Error) {
+         throw new Error('Error fetching data: ' + error.message)
+        } else {
+            throw new Error('Error fetching data.')  
+        }
     }
 }

@@ -14,11 +14,14 @@ export default async function getFacilitiesData(token: string): Promise<facility
             if (!response.ok) {
                 throw new Error('Network response was not ok')
             }   
-            const data = await response.json()
+            const data: facilityType[] = await response.json()
             return data
+            
     } catch (error) {
-        console.log(error)
-        return error as Error
-        
+        if (error instanceof Error) {
+            throw new Error('Error fetching data: ' + error.message)
+           } else {
+               throw new Error('Error fetching data.') 
+           }
     }
 }

@@ -14,14 +14,17 @@ export default async function createNewPatient(token: string, patientData : pati
           });
 
           if (!response.ok) {
-            throw new Error('Network response was not ok')
+            throw new Error('Network response was not ok. Status code: ' + response.status)
         } 
     
-          const data = await response.json();
-          console.log(data)
+          const data: patientType = await response.json()
           return data
         
     } catch (error) {
-        return error as Error;
+        if (error instanceof Error) {
+         throw new Error('Error fetching data: ' + error.message)
+        } else {
+            throw new Error('Error fetching data.')  
+        }
     }
 }

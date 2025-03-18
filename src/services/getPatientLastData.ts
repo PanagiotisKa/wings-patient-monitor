@@ -1,11 +1,6 @@
-import mockData from '../../../mockDetailPatientData.json'
+import mockData from '../../../mockDetailPatientData.json' assert { type: 'json' }
+import { patientLastDataType } from '../types/patientsTypes'
 
-type patientLastDataType = {
-    timestamp: string
-    heart_rate: number
-    z_accel: number
-
-}
 
 export default async function getPatientLastData(token:string, patient_id: number): Promise< patientLastDataType | Error> {
     try {
@@ -20,20 +15,26 @@ export default async function getPatientLastData(token:string, patient_id: numbe
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }   
-            let data = await response.json();
+            const data: patientLastDataType = await response.json();
+            
             // if PROBLEM with ENDPOINT returning empty object  I am getting mock data
             if(Object.keys(data).length === 0) {
-                mockData.forEach(item => {
+                let patient: number | undefined;
+                mockData.forEach((item, index) => {
                     if(item.patient_id === patient_id) {
-                        data = item
+                        patient = index 
                     }
                 })
-
-                
+                if (patient !== undefined) return mockData[patient] as patientLastDataType;
+                else throw new Error(`No mock data found for patient_id: ${patient_id}`);
+            } else {
+                return data
             }
-            return data
     } catch (error) {
-        console.log(error)
-      return error as Error;
+        if (error instanceof Error) {
+            throw new Error('Error fetching data: ' + error.message)
+            } else {
+                throw new Error('Error fetching data.')  
+            }
     }
 }
